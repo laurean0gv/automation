@@ -1,8 +1,13 @@
 package tests;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import backend.Azure;
@@ -20,15 +25,25 @@ public class Test_ReagendarVisita {
 	private static final String user=Configuracion.getPropiedad("Test_ReagendarVisita","USER");
 	private static final String pass=Configuracion.getPropiedad("Test_ReagendarVisita","PASS");
 	private static final String encryptedData=Configuracion.getPropiedad("Test_ReagendarVisita","encryptedData");
+	private static final String URL_BASE=Configuracion.getPropiedad("General","URL_BASE_DESA");
 	
 	WebDriver driver;
 	Util util = new Util();
 	AgendarReagendar reagendar = new AgendarReagendar();
 	DetalleVisita detalle = new DetalleVisita();
 	
+	@BeforeTest
+	public void setUp() {
+		System.getProperty("wedriver.chrome.driver", "/AutomationTestPrevencion/drivers/chromedriver.exe");
+		driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		
+		driver.get(URL_BASE);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));	
+	}
 	
 	@Test
-	public void testCase(WebDriver driver) {
+	public void testReagendarVisita() {
 		
 		Login login = new Login();
 		LogOut logout = new LogOut();
@@ -90,5 +105,10 @@ public class Test_ReagendarVisita {
 		//hacemos el logout
 		logout.logout(driver);
 	
+	}
+	
+	@AfterTest
+	public void close() {
+		driver.quit();
 	}
 }

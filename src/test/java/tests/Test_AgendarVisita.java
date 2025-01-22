@@ -1,8 +1,13 @@
 package tests;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import backend.Azure;
@@ -20,6 +25,7 @@ public class Test_AgendarVisita {
 	private static final String user=Configuracion.getPropiedad("Test_AgendarVisita","USER");
 	private static final String pass=Configuracion.getPropiedad("Test_AgendarVisita","PASS");
 	private static final String encryptedData=Configuracion.getPropiedad("Test_AgendarVisita","encryptedData");
+	private static final String URL_BASE=Configuracion.getPropiedad("General","URL_BASE_DESA");
 	
 	WebDriver driver;
 	Util util = new Util();
@@ -27,9 +33,18 @@ public class Test_AgendarVisita {
 	DetalleVisita detalle = new DetalleVisita();
 	String fecha = util.getDate(10);
 	
+	@BeforeTest
+	public void setUp() {
+		System.getProperty("wedriver.chrome.driver", "/AutomationTestPrevencion/drivers/chromedriver.exe");
+		driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		
+		driver.get(URL_BASE);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));	
+	}
 	
 	@Test
-	public void testCase(WebDriver driver) {
+	public void testAgendarVisita() {
 		
 		Login login = new Login();
 		LogOut logout = new LogOut();
@@ -74,7 +89,7 @@ public class Test_AgendarVisita {
 			Assert.assertEquals("10:00 hs",horarioObtenido);
 			Assert.assertEquals("01:00 hs",duracionObtenida);
 			
-			Azure.RunTest(23488, 23490, 7702);
+			Azure.RunTest(14734, 23515, 7714);
 						
 							
 		
@@ -88,5 +103,10 @@ public class Test_AgendarVisita {
 		//hacemos el logout
 		logout.logout(driver);
 	
+	}
+	
+	@AfterTest
+	public void close() {
+		driver.quit();
 	}
 }
