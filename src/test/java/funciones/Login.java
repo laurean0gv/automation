@@ -1,4 +1,4 @@
-package tests;
+package funciones;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,11 +12,10 @@ public class Login {
 		
 	
 	@Test
-	public void login(WebDriver driver, String user, String pass) {
-		//driver=new ChromeDriver();
+	public WebDriver login(WebDriver driver, String user, String pass) {
 		Util util = new Util();
 	
-		util.waitSecods(2);
+		util.waitSecods(1);
 		
 		
 		driver.findElement(By.xpath("/html/body/div/div/div[1]/div/form/div[1]/div[2]/input")).sendKeys(user);
@@ -28,8 +27,11 @@ public class Login {
 		util.waitSecods(1);
 		
 		driver.findElement(By.xpath("/html/body/div/div/div[1]/div/form/button")).click();
+		
+		//Espera la carga de la tabla
+		util.esperarElemento(driver, "//*[@id=\"root\"]/div/div[1]/div/div[4]");
 
-		//return driver;
+		return driver;
 		
 	}
 	
