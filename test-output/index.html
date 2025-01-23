@@ -26,7 +26,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite</span>
+      <span class="top-banner-font-1">1 suite, 2 failed tests</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -40,7 +40,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" panel-name="suite-SuiteAgenda" class="navigator-link">
-              <span class="suite-name border-passed">SuiteAgenda</span>
+              <span class="suite-name border-failed">SuiteAgenda</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -93,7 +93,26 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">3 methods,   3 passed</span>
+                    <span class="method-stats">3 methods, 2 failed,   1 passed</span>
+                  </li>
+                  <li>
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-SuiteAgenda" class="hide-methods failed suite-SuiteAgenda"> (hide)</a> <!-- hide-methods failed suite-SuiteAgenda -->
+                      <a href="#" panel-name="suite-SuiteAgenda" class="show-methods failed suite-SuiteAgenda"> (show)</a> <!-- show-methods failed suite-SuiteAgenda -->
+                    </span>
+                    <div class="method-list-content failed suite-SuiteAgenda">
+                      <span>
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-SuiteAgenda" title="tests.Test_DesagendarVisita" class="method navigator-link" hash-for-method="testDesagendarVisita">testDesagendarVisita</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-SuiteAgenda" title="tests.Test_ReagendarVisita" class="method navigator-link" hash-for-method="testReagendarVisita">testReagendarVisita</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content failed suite-SuiteAgenda -->
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -105,16 +124,6 @@
                       <span>
                         <img src="passed.png" width="3%"/>
                         <a href="#" panel-name="suite-SuiteAgenda" title="tests.Test_AgendarVisita" class="method navigator-link" hash-for-method="testAgendarVisita">testAgendarVisita</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-SuiteAgenda" title="tests.Test_DesagendarVisita" class="method navigator-link" hash-for-method="testDesagendarVisita">testDesagendarVisita</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-SuiteAgenda" title="tests.Test_ReagendarVisita" class="method navigator-link" hash-for-method="testReagendarVisita">testReagendarVisita</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-SuiteAgenda -->
@@ -129,9 +138,9 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-SuiteAgenda" class="panel SuiteAgenda">
-          <div class="suite-SuiteAgenda-class-passed">
+          <div class="suite-SuiteAgenda-class-failed">
             <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
+              <img src="failed.png"/>
               <span class="class-name">tests.Test_DesagendarVisita</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
@@ -140,10 +149,35 @@
                   <a name="testDesagendarVisita">
                   </a> <!-- testDesagendarVisita -->
                   <span class="method-name">testDesagendarVisita</span>
+                  <div class="stack-trace">java.lang.AssertionError: null
+	at tests.Test_DesagendarVisita.testDesagendarVisita(Test_DesagendarVisita.java:96)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+... Removed 27 stack frames
+</div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-SuiteAgenda-class-passed -->
+          </div> <!-- suite-SuiteAgenda-class-failed -->
+          <div class="suite-SuiteAgenda-class-failed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="failed.png"/>
+              <span class="class-name">tests.Test_ReagendarVisita</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="testReagendarVisita">
+                  </a> <!-- testReagendarVisita -->
+                  <span class="method-name">testReagendarVisita</span>
+                  <div class="stack-trace">java.lang.AssertionError: null
+	at tests.Test_ReagendarVisita.testReagendarVisita(Test_ReagendarVisita.java:99)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+... Removed 27 stack frames
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-SuiteAgenda-class-failed -->
           <div class="suite-SuiteAgenda-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
@@ -155,21 +189,6 @@
                   <a name="testAgendarVisita">
                   </a> <!-- testAgendarVisita -->
                   <span class="method-name">testAgendarVisita</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-            </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-SuiteAgenda-class-passed -->
-          <div class="suite-SuiteAgenda-class-passed">
-            <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
-              <span class="class-name">tests.Test_ReagendarVisita</span>
-            </div> <!-- main-panel-header rounded-window-top -->
-            <div class="main-panel-content rounded-window-bottom">
-              <div class="method">
-                <div class="method-content">
-                  <a name="testReagendarVisita">
-                  </a> <!-- testReagendarVisita -->
-                  <span class="method-name">testReagendarVisita</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -246,20 +265,20 @@ data.addRows(3);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'testAgendarVisita')
 data.setCell(0, 2, 'tests.Test_AgendarVisita')
-data.setCell(0, 3, 19904);
+data.setCell(0, 3, 19266);
 data.setCell(1, 0, 1)
 data.setCell(1, 1, 'testReagendarVisita')
 data.setCell(1, 2, 'tests.Test_ReagendarVisita')
-data.setCell(1, 3, 17732);
+data.setCell(1, 3, 10039);
 data.setCell(2, 0, 2)
 data.setCell(2, 1, 'testDesagendarVisita')
 data.setCell(2, 2, 'tests.Test_DesagendarVisita')
-data.setCell(2, 3, 13335);
+data.setCell(2, 3, 9728);
 window.suiteTableData['SuiteAgenda']= { tableData: data, tableDiv: 'times-div-SuiteAgenda'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 50 seconds</span>
+              <span class="suite-total-time">Total running time: 39 seconds</span>
               <div id="times-div-SuiteAgenda">
               </div> <!-- times-div-SuiteAgenda -->
             </div> <!-- times-div -->
@@ -292,41 +311,45 @@ return data;
               </div> <!-- configuration-test before -->
               <div class="test-method">
                 <span class="method-name">testAgendarVisita</span>
-                <span class="method-start">1908 ms</span>
+                <span class="method-start">2096 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-test after">
                 <span class="method-name">close</span>
-                <span class="method-start">21817 ms</span>
+                <span class="method-start">21367 ms</span>
               </div> <!-- configuration-test after -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">tests.Test_ReagendarVisita</div> <!-- chronological-class-name -->
               <div class="configuration-test before">
                 <span class="method-name">setUp</span>
-                <span class="method-start">22507 ms</span>
+                <span class="method-start">22020 ms</span>
               </div> <!-- configuration-test before -->
               <div class="test-method">
+                <img src="failed.png">
+                </img>
                 <span class="method-name">testReagendarVisita</span>
-                <span class="method-start">24010 ms</span>
+                <span class="method-start">23684 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-test after">
                 <span class="method-name">close</span>
-                <span class="method-start">41744 ms</span>
+                <span class="method-start">33725 ms</span>
               </div> <!-- configuration-test after -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">tests.Test_DesagendarVisita</div> <!-- chronological-class-name -->
               <div class="configuration-test before">
                 <span class="method-name">setUp</span>
-                <span class="method-start">42342 ms</span>
+                <span class="method-start">35808 ms</span>
               </div> <!-- configuration-test before -->
               <div class="test-method">
+                <img src="failed.png">
+                </img>
                 <span class="method-name">testDesagendarVisita</span>
-                <span class="method-start">43781 ms</span>
+                <span class="method-start">37331 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-test after">
                 <span class="method-name">close</span>
-                <span class="method-start">57117 ms</span>
+                <span class="method-start">47060 ms</span>
               </div> <!-- configuration-test after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

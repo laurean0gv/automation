@@ -12,9 +12,10 @@ public class Azure {
 	
 	public static void RunTest (int testPlan,  int testSuite, int testPoint) {
 		
-		final String user=Configuracion.getPropiedad("Azure","USER");
-		final String token=Configuracion.getPropiedad("Azure","TOKEN");
-		final String proyecto=Configuracion.getPropiedad("Azure","PROYECTO");
+		final String user=Configuracion.getPropiedad("General","USER");
+		final String user_id=Configuracion.getPropiedad("General","USER_ID");
+		final String token=Configuracion.getPropiedad("General","TOKEN");
+		final String proyecto=Configuracion.getPropiedad("General","PROYECTO");
 		
     	CloseableHttpClient httpClient = HttpClients.createDefault();
         //CloseableHttpResponse response = null;                
@@ -27,7 +28,7 @@ public class Azure {
         		+ "  {\r\n"
         		+ "    \"id\": "+testPoint+",\r\n"
         		+ "    \"assignedTo\": {\r\n"
-        		+ "        \"id\": \"dea16325-560a-6a3a-b9d3-271c40f0a01e\",\r\n"
+        		+ "        \"id\": \""+user_id+"\",\r\n"
         		+ "        \"displayName\": \""+user+"\"\r\n"
         		+ "    },\r\n"
         		+ "    \"results\":{\r\n"

@@ -25,7 +25,7 @@ public class Test_DesagendarVisita {
 	private static final String user=Configuracion.getPropiedad("Test_ReagendarVisita","USER");
 	private static final String pass=Configuracion.getPropiedad("Test_ReagendarVisita","PASS");
 	private static final String encryptedData=Configuracion.getPropiedad("Test_ReagendarVisita","encryptedData");
-	private static final String URL_BASE=Configuracion.getPropiedad("General","URL_BASE_DESA");
+	private static final String URL_BASE=Configuracion.getPropiedad("General","URL_BASE");
 	
 	WebDriver driver;
 	Util util = new Util();
@@ -63,10 +63,10 @@ public class Test_DesagendarVisita {
 		try {
 			
 			//Espera la carga de la tabla
-			util.esperarElemento(driver, "//*[@id=\"root\"]/div/div[1]/div/div[4]");
+			util.esperarElemento(driver, "//*[@id=\\\"root\\\"]/div/div[1]/div/div[5]/div/div/table/tbody");
 			
 			//buscamos la visita que queremos agendar
-			driver=detalle.accederDetalleVisita(driver, "//*[@id=\"root\"]/div/div[1]/div/div[4]/div/div/table/tbody/tr[10]/td[2]/div/div/a", "ALQUIVIAL S R L");
+			driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[1]/div/div[5]/div/div/table/tbody/tr[10]/td[2]/div/div/a")).click();
 			
 			//desagendamos
 			desAgendar.desagendar(driver);
