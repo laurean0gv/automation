@@ -1,24 +1,23 @@
 package backend;
 
-import org.apache.hc.client5.http.classic.methods.HttpPost;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
-import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.apache.http.entity.StringEntity;
 import org.json.JSONObject;
+import java.io.IOException;
 
 public class PostLogin {
-	
-    public static String loginBack(String encryptedData){
-    	CloseableHttpClient httpClient = null;
+
+    public static String loginBack(String encryptedData) {
+        CloseableHttpClient httpClient = null;
         CloseableHttpResponse response = null;
-        String accesToken;
-        
-        
-        //setoa el body para el request
-        StringEntity customerEntity = new StringEntity(encryptedData);
-        
+        String accessToken = "";
+
+        // Setear el body para el request
+        StringEntity customerEntity = new StringEntity(encryptedData, "UTF-8");
 
         String url = "https://dev-apigateway.artprovincia.ar/hys/preventores/auth/v1/login";
         HttpPost httpPost = new HttpPost(url);
@@ -27,33 +26,33 @@ public class PostLogin {
         httpPost.setHeader("consumidor", "Preventores");
         httpPost.setEntity(customerEntity);
         httpClient = HttpClients.createDefault();
-        
-        
-        
-        
+
         try {
+            // Ejecutar el post
+            response = httpClient.execute(httpPost);
 
-        	//ejecuto el post
-         	response = httpClient.execute(httpPost);
-        	
-        	String responseBody = EntityUtils.toString(response.getEntity());
-        	
-        	JSONObject objetoJson = new JSONObject(responseBody);
+            String responseBody = EntityUtils.toString(response.getEntity());
 
-            //guarda el token
-        	accesToken = objetoJson.getJSONObject("data").getJSONObject("userData").getJSONObject("token").getString("access_token");
-        	
-        	
+            JSONObject objetoJson = new JSONObject(responseBody);
 
-        } catch(Exception e) {
-        	System.out.println("-> " + e.toString());
-        	return "";
+            // Guardar el token
+            accessToken = objetoJson.getJSONObject("data").getJSONObject("userData").getJSONObject("token").getString("access_token");
+
+        } catch (Exception e) {
+            System.out.println("-> " + e.toString());
+        } finally {
+            try {
+                if (response != null) {
+                    response.close();
+                }
+                if (httpClient != null) {
+                    httpClient.close();
+                }
+            } catch (IOException e) {
+                System.out.println("-> " + e.toString());
+            }
         }
-        
-        
-        
-        return accesToken;
-    }
-    
-}
 
+        return accessToken;
+    }
+}

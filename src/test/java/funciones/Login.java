@@ -29,7 +29,7 @@ public class Login {
 		driver.findElement(By.xpath("/html/body/div/div/div[1]/div/form/button")).click();
 		
 		//Espera la carga de la tabla
-		util.esperarElemento(driver, "//*[@id=\"root\"]/div/div[1]/div/div[4]");
+		util.esperarElemento(driver, "//p[contains(text(),'Empresa')]");
 
 		return driver;
 		

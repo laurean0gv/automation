@@ -7,7 +7,7 @@
         <methods>
           <include name="setUp"/>
           <include name="close"/>
-          <include name="testCase"/>
+          <include name="testAgendarVisita"/>
         </methods>
       </class> <!-- tests.Test_AgendarVisita -->
     </classes>

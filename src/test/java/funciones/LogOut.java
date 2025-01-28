@@ -12,9 +12,10 @@ public class LogOut {
 	public void logout(WebDriver driver) {
 	
 		
-		driver.findElement(By.xpath("/html/body/div/div/header/div/nav/ul/li/a")).click();
+		driver.findElement(By.xpath("//span[contains(text(),'Mi perfil')]")).click();
+		
+		driver.findElement(By.xpath("//span[contains(text(),'Cerrar sesión')]")).click();
 
-	
 		
 	}
 	

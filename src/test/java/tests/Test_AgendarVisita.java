@@ -64,39 +64,41 @@ public class Test_AgendarVisita {
 		try {
 			
 			//Espera la carga de la tabla
-			util.esperarElemento(driver, "//*[@id=\"root\"]/div/div[1]/div/div[5]/div/div/table/tbody");
+			util.esperarElemento(driver, "(//a[contains(text(),'ALQUIVIAL S R L')])[2]");
 			
 			//buscamos la visita que queremos agendar
-			driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[1]/div/div[5]/div/div/table/tbody/tr[10]/td[2]/div/div/a")).click();
+			driver.findElement(By.xpath("(//a[contains(text(),'ALQUIVIAL S R L')])[2]")).click();
 			
 			//agendamos
-			agendar.agendar_reagendar(driver,fecha.replaceAll("/",""),"1000","");
+			agendar.agendar_reagendar(driver,fecha.replaceAll("/",""),"1000","",2);
 			
+					
 			//obtiene el estado de la visita
-			String estadoViistaObtenida=driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[1]/div[3]/div[4]/div/h6")).getText();
+			String estadoViistaObtenida=driver.findElement(By.xpath("//h6[contains(text(),'Agendada no realizada')]")).getText();
 			
 			//obtiene la fecha agendada
-			String fechaAgendadaObtenida=driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[1]/div[3]/div[3]/div[1]/p")).getText();
-			
+			String fechaAgendadaObtenida=driver.findElement(By.xpath("//p[contains(text(),'Fecha agendada')]//parent::div//parent::div/p[text()='"+fecha+"']")).getText();
+				
 			//obtiene el horario
-			String horarioObtenido=driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[1]/div[3]/div[3]/div[2]/p")).getText();
+			String horarioObtenido=driver.findElement(By.xpath("//p[contains(text(),'Horario')]//parent::div//parent::div/p[text()='10:00 hs']")).getText();
 			
 			//obtiene la duracion
-			String duracionObtenida=driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[1]/div[3]/div[3]/div[3]/p")).getText();
+			String duracionObtenida=driver.findElement(By.xpath("//p[contains(text(),'Duración')]//parent::div//parent::div/p[text()='01:00 hs']")).getText();
 			
 			Assert.assertEquals("Agendada no realizada",estadoViistaObtenida, "caso feliz");
 			Assert.assertEquals(fecha,fechaAgendadaObtenida);
 			Assert.assertEquals("10:00 hs",horarioObtenido);
 			Assert.assertEquals("01:00 hs",duracionObtenida);
 			
-			Azure.RunTest(14734, 23515, 7714);
+			//ejecuta el caso en azure
+			Azure.RunTest(14734, 23515, 23516);
 						
 							
 		
 		}catch(Exception e) {
 			util.screenShot(driver, "Test_AgendarVisita");
-			Assert.fail();
 			System.out.println(e.getMessage());
+			Assert.fail();
 		}
 		
 				

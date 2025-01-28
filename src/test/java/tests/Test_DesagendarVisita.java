@@ -21,7 +21,8 @@ import utils.Configuracion;
 import utils.Util;
 
 public class Test_DesagendarVisita {
-
+	
+	//obtiene los datos para la prueba desde el archivo properties
 	private static final String user=Configuracion.getPropiedad("Test_ReagendarVisita","USER");
 	private static final String pass=Configuracion.getPropiedad("Test_ReagendarVisita","PASS");
 	private static final String encryptedData=Configuracion.getPropiedad("Test_ReagendarVisita","encryptedData");
@@ -63,38 +64,42 @@ public class Test_DesagendarVisita {
 		try {
 			
 			//Espera la carga de la tabla
-			util.esperarElemento(driver, "//*[@id=\\\"root\\\"]/div/div[1]/div/div[5]/div/div/table/tbody");
+			util.esperarElemento(driver, "(//a[contains(text(),'ALQUIVIAL S R L')])[2]");
 			
 			//buscamos la visita que queremos agendar
-			driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[1]/div/div[5]/div/div/table/tbody/tr[10]/td[2]/div/div/a")).click();
+			driver.findElement(By.xpath("(//a[contains(text(),'ALQUIVIAL S R L')])[2]")).click();
+			
 			
 			//desagendamos
 			desAgendar.desagendar(driver);
 			
-			//obtiene el estado de la visita
-			String estadoViistaObtenida=driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[1]/div[3]/div[4]/div/h6")).getText();
 			
-			//obtiene la fecha agendada
-			String fechaAgendadaObtenida=driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[1]/div[3]/div[3]/div[1]/p")).getText();
+			//Compara los resultados
+			//el estado de la visita
+			Assert.assertEquals("Sin agendar",driver.findElement(By.xpath("//h6[contains(text(),'Sin agendar')]")).getText());
 			
-			//obtiene el horario
-			String horarioObtenido=driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[1]/div[3]/div[3]/div[2]/p")).getText();
+			//la fecha agendada
+			Assert.assertEquals("-",driver.findElement(By.xpath("//p[contains(text(),'Fecha agendada')]//parent::div//parent::div/p[text()='-']")).getText());
 			
-			//obtiene la duracion
-			String duracionObtenida=driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[1]/div[3]/div[3]/div[3]/p")).getText();
-			//System.out.println(Assert.assertEquals("Sin agendar",estadoViistaObtenida));
+			//el horario
+			Assert.assertEquals("-",driver.findElement(By.xpath("//p[contains(text(),'Horario')]//parent::div//parent::div/p[text()='-']")).getText());
 			
-			Assert.assertEquals("Sin agendar",estadoViistaObtenida);
-			Assert.assertEquals("-",fechaAgendadaObtenida);
-			Assert.assertEquals("-",horarioObtenido);
-			Assert.assertEquals("-",duracionObtenida);
+			//la duracion
+			Assert.assertEquals("-",driver.findElement(By.xpath("//p[contains(text(),'Duración')]//parent::div//parent::div/p[text()='-']")).getText());			
 			
-			Azure.RunTest(14734, 23515, 7716);
+			//ejecuta el caso en azure
+			Azure.RunTest(14734, 23515, 23518);
 		
+			
 		}catch(Exception e) {
-			util.screenShot(driver, "Test_DesagendarVisita");
-			Assert.fail();
+			
 			System.out.println(e.getMessage());
+			
+			//saca un print de pantalla
+			util.screenShot(driver, "Test_DesagendarVisita");
+			
+			//da por fallado el caso
+			Assert.fail();
 		}
 		
 				

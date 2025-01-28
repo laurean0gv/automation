@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Failed suite [SuiteAgenda]" guice-stage="DEVELOPMENT">
-  <test thread-count="5" name="Reagendar Visita(failed)">
+<suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.Test_ReagendarVisita">
-        <methods>
-          <include name="testReagendarVisita"/>
-          <include name="setUp"/>
-          <include name="close"/>
-        </methods>
-      </class> <!-- tests.Test_ReagendarVisita -->
-    </classes>
-  </test> <!-- Reagendar Visita(failed) -->
-  <test thread-count="5" name="Desagendar Visita(failed)">
-    <classes>
-      <class name="tests.Test_DesagendarVisita">
+      <class name="tests.Test_AgendarVisita">
         <methods>
           <include name="setUp"/>
           <include name="close"/>
-          <include name="testDesagendarVisita"/>
+          <include name="testAgendarVisita"/>
         </methods>
-      </class> <!-- tests.Test_DesagendarVisita -->
+      </class> <!-- tests.Test_AgendarVisita -->
     </classes>
-  </test> <!-- Desagendar Visita(failed) -->
-</suite> <!-- Failed suite [SuiteAgenda] -->
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

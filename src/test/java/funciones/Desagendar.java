@@ -13,7 +13,7 @@ public class Desagendar {
 		
 
 		//hacemos click en el boton desagendar
-		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div[1]/div[2]/div[2]/div/div[1]/button/div/span")).click();
+		driver.findElement(By.xpath("//span[contains(text(),'Desagendar')]")).click();
 		util.waitSecods(1);
 		
 
@@ -22,7 +22,7 @@ public class Desagendar {
 									
 		
 		//hacemos click en el boton desagendar visita
-		driver.findElement(By.xpath("//*[@id=\"modal-background\"]/div/div/div[3]/button[2]/div/span")).click();
+		driver.findElement(By.xpath("(//span[contains(text(),'Desagendar')])[2]")).click();
 		util.waitSecods(2);
 		
 			
