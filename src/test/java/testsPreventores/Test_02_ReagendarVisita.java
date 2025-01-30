@@ -1,4 +1,4 @@
-package tests;
+package testsPreventores;
 
 import java.time.Duration;
 
@@ -12,20 +12,20 @@ import org.testng.annotations.Test;
 
 import backend.Azure;
 import backend.PostAgendar;
-import backend.PostLogin;
-import funciones.LogOut;
-import funciones.Login;
-import funciones.AgendarReagendar;
-import funciones.DetalleVisita;
+import metodos.AgendarReagendar;
+import metodos.DetalleVisita;
+import metodos.LogOutPreventores;
+import metodos.LoginPreventores;
 import utils.Configuracion;
 import utils.Util;
 
-public class Test_ReagendarVisita {
+public class Test_02_ReagendarVisita {
 
-	private static final String user=Configuracion.getPropiedad("Test_ReagendarVisita","USER");
-	private static final String pass=Configuracion.getPropiedad("Test_ReagendarVisita","PASS");
-	private static final String encryptedData=Configuracion.getPropiedad("Test_ReagendarVisita","encryptedData");
-	private static final String URL_BASE=Configuracion.getPropiedad("General","URL_BASE");
+	private static final String user=Configuracion.getPropiedad("Test_Preventores","TEST_01_PREVENTORES_USER");
+	private static final String pass=Configuracion.getPropiedad("Test_Preventores","TEST_01_PREVENTORES_PASS");
+	private static final String encryptedData=Configuracion.getPropiedad("Test_Preventores","TEST_01_PREVENTORES_encryptedData");
+	private static final String URL_BASE=Configuracion.getPropiedad("General","URL_PREVENTORES_BASE");
+	private static final String proyecto = Configuracion.getPropiedad("General", "PROYECTO_PREVENTORES");
 	
 	WebDriver driver;
 	Util util = new Util();
@@ -45,33 +45,26 @@ public class Test_ReagendarVisita {
 	@Test
 	public void testReagendarVisita() {
 		
-		Login login = new Login();
-		LogOut logout = new LogOut();
-		String fecha = util.getDate(10);
-		
-		
-		//Obtiene el token para hacer desagendar la visita
-		String token =PostLogin.loginBack(encryptedData);
-		
+		String fecha = Util.getDate(10);
+
 		//Pide agendar la visita al back
-		//DeleteDesagendar.desagendarBack(token,"4003550");
-		PostAgendar.agendarBack(token, "4003550", "10/10/2025 10:00:00", "10/10/2025 12:00:00");
-		util.waitSecods(1);
+		PostAgendar.agendarBack(encryptedData, "4003550", "10/10/2025 10:00:00", "10/10/2025 12:00:00");
+		Util.waitSecods(1);
 		
 		//Hace el login
-		driver=login.login(driver, user, pass);
-		util.waitSecods(3);
+		driver=LoginPreventores.login(driver, user, pass);
+		Util.waitSecods(3);
 		
 		try {
 			
 			//Espera la carga de la tabla
-			util.esperarElemento(driver, "(//a[contains(text(),'ALQUIVIAL S R L')])[2]");
+			Util.esperarElemento(driver, "(//a[contains(text(),'ALQUIVIAL S R L')])[2]");
 			
 			//buscamos la visita que queremos agendar
 			driver.findElement(By.xpath("(//a[contains(text(),'ALQUIVIAL S R L')])[2]")).click();			
 			
 			//agendamos
-			reagendar.agendar_reagendar(driver,fecha.replaceAll("/",""),"0845","0230",1);
+			AgendarReagendar.agendar_reagendar(driver,fecha.replaceAll("/",""),"0845","0230",1);
 			
 			//obtiene el estado de la visita
 			String estadoViistaObtenida=driver.findElement(By.xpath("//h6[contains(text(),'Agendada no realizada')]")).getText();
@@ -91,20 +84,18 @@ public class Test_ReagendarVisita {
 			Assert.assertEquals("08:45 hs",horarioObtenido);
 			Assert.assertEquals("02:30 hs",duracionObtenida);
 			
-			Azure.RunTest(14734, 23515, 23517);
+			//Ejecuta el caso en Azure
+			Azure.RunTest(proyecto, 14734, 23515, 23517);
 			
 		
 		}catch(Exception e) {
-			util.screenShot(driver, "Test_ReagendarVisita");
+			Util.screenShot(driver, "Test_ReagendarVisita");
 			System.out.println(e.getMessage());
 			Assert.fail();
-			
-		}
-		
-
+			}
 				
 		//hacemos el logout
-		logout.logout(driver);
+		LogOutPreventores.logout(driver);
 	
 	}
 	

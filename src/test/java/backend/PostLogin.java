@@ -11,7 +11,10 @@ import java.io.IOException;
 
 public class PostLogin {
 
-    public static String loginBack(String encryptedData) {
+	/**Funcion protected para obtener el token backend que se usa para las funciones PostAgendar y DeleteDesagendar
+	 * Recibe el encrypted data que son las credenciales encriptadas
+	**/
+    protected static String loginBack(String encryptedData) {
         CloseableHttpClient httpClient = null;
         CloseableHttpResponse response = null;
         String accessToken = "";

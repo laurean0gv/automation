@@ -11,12 +11,19 @@ import java.io.IOException;
 
 public class PostAgendar {
 
-    public static void agendarBack(String accessToken, String idVisita, String fechainicio, String fechafin) {
+	/**Funcion para Agendar una visita desde el backend
+	 * Recibe el encryptedData para el servicio, el id de visita, la fecha de inicio y la fecha de fin de la visita
+	 * Encrypted data son las credenciales encriptadas
+	 * Formato fecha DD/MM/AAAA HH:MM:SS
+	**/
+    public static void agendarBack(String encryptedData, String idVisita, String fechainicio, String fechafin) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
         String url = "https://dev-apigateway.artprovincia.ar/hys/preventores/v1/agendar/" + idVisita;
         HttpPost httpPost = new HttpPost(url);
 
+        String accessToken = PostLogin.loginBack(encryptedData);
+        
         String json = "{" + "\"fechainicio\":" + "\"" + fechainicio + "\"" + ",\"fechafin\":" + "\"" + fechafin + "\"" + "}";
         StringEntity entity = new StringEntity(json, "UTF-8");
         httpPost.setEntity(entity);
@@ -26,7 +33,7 @@ public class PostAgendar {
 
         try {
             CloseableHttpResponse response = httpClient.execute(httpPost);
-            String responseBody = EntityUtils.toString(response.getEntity());
+            EntityUtils.toString(response.getEntity());
 //            System.out.println(responseBody);
             response.close();
         } catch (Exception e) {

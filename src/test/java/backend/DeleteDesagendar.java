@@ -9,11 +9,17 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 
 public class DeleteDesagendar {
-
-    public static void desagendarBack(String accessToken, String idVisita) {
+	
+	/**Funcion para desagendar una visita desde el backend
+	 * Recibe el encrypted para el servicio y el id de visita
+	 * Encrypted data son las credenciales encriptadas
+	**/
+    public static void desagendarBack(String encryptedData, String idVisita) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse response = null;
 
+        String accessToken = PostLogin.loginBack(encryptedData);
+                
         String url = "https://dev-apigateway.artprovincia.ar/hys/preventores/v1/agendar/" + idVisita;
         HttpDelete httpDelete = new HttpDelete(url);
         httpDelete.setHeader("Accept", "application/json");
@@ -21,7 +27,7 @@ public class DeleteDesagendar {
 
         try {
             response = httpClient.execute(httpDelete);
-            String responseBody = EntityUtils.toString(response.getEntity());
+            EntityUtils.toString(response.getEntity());
             //System.out.println(responseBody);
         } catch (Exception e) {
             System.out.println("-> " + e.toString());

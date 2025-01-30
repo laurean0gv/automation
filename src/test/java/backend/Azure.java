@@ -16,9 +16,12 @@ import utils.Configuracion;
 
 public class Azure {
 
-    public static Integer PointId(Integer testPlan, Integer testSuite, Integer testCase) throws IOException {
+	/**Funcion privada para obtener el point id
+	 * Recibe el TestPlanID, el TestSuitId y el TestCaseId
+	**/
+    private static Integer PointId(String proyecto, Integer testPlan, Integer testSuite, Integer testCase) throws IOException {
         final String token = Configuracion.getPropiedad("General", "TOKEN");
-        final String proyecto = Configuracion.getPropiedad("General", "PROYECTO");
+        //final String proyecto = Configuracion.getPropiedad("General", "PROYECTO");
 
         String url = "https://dev.azure.com/Provincia-ART/" + proyecto + "/_apis/testplan/Plans/" + testPlan + "/Suites/" + testSuite + "/TestPoint?testcaseid=" + testCase + "&api-version=7.1";
 
@@ -54,16 +57,19 @@ public class Azure {
         }
     }
 
-    public static void RunTest(int testPlan, int testSuite, int testCase) {
+	/**Funcion para ejecutar el test case en Azure
+	 * Recibe el TestPlanID, el TestSuitId y el TestCaseId
+	**/
+    public static void RunTest(String proyecto, int testPlan, int testSuite, int testCase) {
         final String user = Configuracion.getPropiedad("General", "USER");
         final String user_id = Configuracion.getPropiedad("General", "USER_ID");
         final String token = Configuracion.getPropiedad("General", "TOKEN");
-        final String proyecto = Configuracion.getPropiedad("General", "PROYECTO");
+        //final String proyecto = Configuracion.getPropiedad("General", "PROYECTO");
 
         Integer testPoint = 0;
 
         try {
-            testPoint = PointId(testPlan, testSuite, testCase);
+            testPoint = PointId(proyecto, testPlan, testSuite, testCase);
         } catch (Exception e) {
             System.out.println("-> " + e.toString());
         }
@@ -85,8 +91,7 @@ public class Azure {
                 "    }\r\n" +
                 "  }\r\n" +
                 "]\r\n";
-
-
+        
         try {
         	
             StringEntity entity = new StringEntity(json);
