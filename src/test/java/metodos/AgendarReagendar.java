@@ -37,11 +37,6 @@ public class AgendarReagendar {
 	        driver.findElement(By.xpath("//input[contains(@placeholder,'--:--')]")).sendKeys(hora);
 	        Util.waitSecods(0);
 
-	        // Completamos la hora
-	        driver.findElement(By.xpath("//input[contains(@placeholder,'--:--')]")).clear();
-	        driver.findElement(By.xpath("//input[contains(@placeholder,'--:--')]")).sendKeys(hora);
-	        Util.waitSecods(0);
-
 	        // Completamos la duración
 	        if (!duracion.isEmpty()) {
 	            driver.findElement(By.xpath("(//input[contains(@placeholder,'--:--')])[2]")).clear();
@@ -63,10 +58,6 @@ public class AgendarReagendar {
 
 	        // Completamos la fecha
 	        driver.findElement(By.xpath("//input[contains(@placeholder,'--/--/----')]")).sendKeys(fecha);
-	        Util.waitSecods(0);
-
-	        // Completamos la hora
-	        driver.findElement(By.xpath("//input[contains(@placeholder,'--:--')]")).sendKeys(hora);
 	        Util.waitSecods(0);
 
 	        // Completamos la hora
